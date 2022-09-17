@@ -13,8 +13,8 @@ void createBoard(CELDA *board, int size) {
     srand(time(0));
     while (filled <= limit - (size * size * 0.05)) {
         int nave = (rand() % (upper - lower + 1)) + lower;
-        int posx = (rand() % 10);
-        int posy = (rand() % 10);
+        int posx = (rand() % size);
+        int posy = (rand() % size);
         int orientation = (rand() % 4);
         char validPos;
 
@@ -36,7 +36,7 @@ char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA b
             pos += (posx * size) + posy;
             for (int i = 0; i < nave; i++) {
                 posx--;
-                if((pos - (i * 10))->id != 0) {
+                if((pos - (i * size))->id != 0) {
                     valid = 0;
                     break;
                 }
@@ -54,7 +54,7 @@ char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA b
             pos += (posx * size) + posy;
             for (int i = 0; i < nave; i++) {
                 posx++;
-                if((pos + (i * 10))->id != 0) {
+                if((pos + (i * size))->id != 0) {
                     valid = 0;
                     break;
                 }
