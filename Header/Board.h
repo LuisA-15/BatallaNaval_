@@ -1,8 +1,9 @@
-void createBoard(CELDA *board, int size);
+void createBoard(PLAYER *jugador, int size);
 char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA [][size]);
-void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, CELDA *board);
+void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, PLAYER *jugador);
 
-void createBoard(CELDA *board, int size) {
+void createBoard(PLAYER *jugador, int size) {
+    CELDA *board = &jugador->board;
     int filled = 0;
     int limit = size * size * 0.3;
     int id = 1;
@@ -78,8 +79,8 @@ char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA b
     return valid;
 }
 
-void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, CELDA *board) {
-    CELDA *pos = board;
+void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, PLAYER *jugador) {
+    CELDA *pos = &jugador->board;
     pos += (posx * size) + posy;
     int movement;
     switch (orientation) {
@@ -93,4 +94,8 @@ void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, 
         (pos + (i * movement))->state = 1;
         (pos + (i * movement))->impact = 0;
     }
+    (jugador->naves + id - 1)->state = 0;
+    (jugador->naves + id - 1)->type = nave;
+    (jugador->naves + id - 1)->orientation = orientation;
+    jugador->naveCount = id;
 }

@@ -3,6 +3,7 @@
 #include <time.h>
 #include "Structs.h"
 #include "Board.h"
+#include "GameMechanics.h"
 
 int main() {
     PLAYER jugador;

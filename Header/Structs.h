@@ -5,9 +5,9 @@ typedef struct celda_struct {
 } CELDA;
 
 typedef struct nave_struct {
-    char *type;
-    char orientation;
+    int type;
     int state;
+    char orientation;
 } NAVE;
 
 typedef struct player_struct {
