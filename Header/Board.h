@@ -1,9 +1,11 @@
 void createBoard(PLAYER *jugador, int size);
+void initBoard(CELDA *board, int size);
 char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA [][size]);
 void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, PLAYER *jugador);
 
 void createBoard(PLAYER *jugador, int size) {
-    CELDA *board = &jugador->board;
+    CELDA *board = jugador->board;
+    initBoard(jugador->board, size);
     int filled = 0;
     int limit = size * size * 0.3;
     int id = 1;
@@ -26,6 +28,14 @@ void createBoard(PLAYER *jugador, int size) {
             filled += nave;
             id++;
         }
+    }
+}
+
+void initBoard(CELDA *board, int size) {
+    CELDA *current = board;
+    for (int i = 0; i < size * size; i++) {
+        current->id = 0;
+        current++;
     }
 }
 

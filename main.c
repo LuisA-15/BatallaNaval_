@@ -10,21 +10,23 @@ int main() {
     PLAYER cpu;
 
     char opcion, opcion2;
-    int size;
+    int size = 10;
     printf("A. Modificar dimension del tablero\n");
     printf("B. Seleccionar modo de juego\n\ta. Didactico\n\tb. Facil\n");
     printf("C. Iniciar juego\n");
     printf("D. Salir\n");
-    scanf("%c ", &opcion);
+    scanf("%c", &opcion);
 
     switch(opcion){
+        case 'a':
         case 'A':
             printf("\nIngrese la dimension de la que desea su tablero: ");
             scanf("%d", &size);
             break;
+        case 'b':
         case 'B':
             printf("\n\ta. Didactico\n\tb. Facil\n");
-            scanf("%c ", &opcion2);
+            scanf("%c", &opcion2);
             switch(opcion2){
                 case 'a':break;
                 case 'b':break;
@@ -33,21 +35,14 @@ int main() {
                     break;
             }
             break;
-        case 'C':break;
+        case 'c':
+        case 'C':
+            createBoard(&jugador, size);
+            createBoard(&cpu, size);
+            Gameplay(&jugador, &cpu, size);
+            break;
+        case 'd':
         case 'D':break;
-    }
-
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j <10; j++) {
-            jugador.board[i][j].id = 0;
-        }
-    }
-    createBoard(jugador.board, 10);
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            printf("%d\t", jugador.board[i][j].id);
-        }
-        printf("\n");
     }
     return 0;
 }
