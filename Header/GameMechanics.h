@@ -13,6 +13,7 @@ void Gameplay(PLAYER *jugador, PLAYER *cpu, int size) {
     while(!gameFlag) {
         switch (playerTurn) {
             case 0:
+                printBoard(jugador, size);
                 PlayerAttack(cpu, size);
                 p = jugador;
                 break;
