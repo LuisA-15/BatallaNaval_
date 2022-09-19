@@ -1,10 +1,11 @@
-void Gameplay(PLAYER *jugador, PLAYER *cpu, int size);
+void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode);
 void CheckForWin(PLAYER *p, char *gameFlag, char cpuFlag);
 void PlayerAttack(PLAYER *cpu, int size);
 void CPUAttack(PLAYER *jugador, int size);
 void CheckNaveState(PLAYER *jugador, CELDA *pos, int size);
+void sinkShip(NAVE *nave, CELDA *pos, int size);
 
-void Gameplay(PLAYER *jugador, PLAYER *cpu, int size) {
+void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
     srand(time(0));
     char playerTurn = rand() % 2; // 0 player turn; 1 cpu turn
     PLAYER *p; // Player on turn
@@ -13,6 +14,11 @@ void Gameplay(PLAYER *jugador, PLAYER *cpu, int size) {
     while(!gameFlag) {
         switch (playerTurn) {
             case 0:
+                if(gameMode == 1){
+                    printf("CPU\n");
+                    printBoard(cpu,size);
+                }
+                printf("Jugador\n");
                 printBoard(jugador, size);
                 PlayerAttack(cpu, size);
                 p = jugador;
@@ -60,7 +66,7 @@ void PlayerAttack(PLAYER *cpu, int size) {
     CELDA *pos = cpu->board;
     pos += (y * size) + x;
 
-    if (pos->state) {
+    if (pos->state && !pos->impact) {
         pos->impact = 1;
         printf("Atinaste a una nave!\n");
         CheckNaveState(cpu, pos, size);
@@ -77,7 +83,7 @@ void CPUAttack(PLAYER *jugador, int size) {
     CELDA *pos = jugador->board;
     pos += (y * size) + x;
 
-    if (pos->state) {
+    if (pos->state && !pos->impact) {
         pos->impact = 1;
         printf("Te atacaron una nave!\n");
         CheckNaveState(jugador, pos, size);
@@ -125,6 +131,36 @@ void CheckNaveState(PLAYER *jugador, CELDA *pos, int size) {
             }
             break;
     }
-    if (naveSunk)
+    if (naveSunk){
         (jugador->naves + pos->id - 1)->state = 1;
+        sinkShip(current,pos,size);
+    }
+}
+
+void sinkShip(NAVE *nave, CELDA *pos, int size){
+    int id = pos->id;
+    switch (nave->orientation) {
+        case ARRIBA:
+        case ABAJO:
+            for (int i = 0; i < nave->type; i++) {
+                if (id == (pos + (i * size))->id) {
+                    (pos + (i * size))->id = 0;
+                }
+                if (id == (pos - (i * size))->id) {
+                    (pos - (i * size))->id = 0;
+                }
+            }
+            break;
+        case DERECHA:
+        case IZQUIERDA:
+            for (int i = 0; i < nave->type; i++) {
+                if (id == (pos + i)->id) {
+                    (pos + i)->id = 0;
+                }
+                if (id == (pos - i)->id) {
+                    (pos - i)->id = 0;
+                }
+            }
+            break;
+    }
 }

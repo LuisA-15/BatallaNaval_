@@ -117,12 +117,14 @@ void printBoard(PLAYER *jugador, int size) {
         for (int j = 0; j < size; j++) {
             if (pos->id > 9) {
                 if (pos->id && pos->impact) {
+                    printf("[%d]", pos->id);
                     printf("X  ");
                 } else {
                     printf("%d  ", pos->id);
                 }
             } else {
                 if (pos->id && pos->impact) {
+                    printf("[%d]", pos->id);
                     printf("X   ");
                 } else {
                     printf("%d   ", pos->id);
