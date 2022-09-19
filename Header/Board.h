@@ -103,6 +103,7 @@ void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, 
     for (int i = 0; i < nave; i++) {
         (pos + (i * movement))->id = id;
         (pos + (i * movement))->state = 1;
+        printf("%d ", (pos + (i * movement))->state);
         (pos + (i * movement))->impact = 0;
     }
     (jugador->naves + id - 1)->state = 0;
@@ -117,12 +118,14 @@ void printBoard(PLAYER *jugador, int size) {
         for (int j = 0; j < size; j++) {
             if (pos->id > 9) {
                 if (pos->id && pos->impact) {
+                    printf("[%d]", pos->id);
                     printf("X  ");
                 } else {
                     printf("%d  ", pos->id);
                 }
             } else {
                 if (pos->id && pos->impact) {
+                    printf("[%d]", pos->id);
                     printf("X   ");
                 } else {
                     printf("%d   ", pos->id);

@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "Structs.h"
 #include "Board.h"
 #include "GameMechanics.h"
@@ -24,6 +24,8 @@ int main() {
             case 'A':
                 printf("\nIngrese la dimension de la que desea su tablero: ");
                 scanf("%d", &size);
+                printMenu();
+                opcion = 0;
                 break;
             case 'B':
                 printf("\n1. Didactico\n2. Facil\n");
@@ -51,7 +53,7 @@ int main() {
 }
 
 void printMenu() {
-    printf("A. Modificar dimension del tablero\n");
+    printf("\nA. Modificar dimension del tablero\n");
     printf("B. Seleccionar modo de juego\n");
     printf("C. Iniciar juego\n");
     printf("D. Salir\n");
