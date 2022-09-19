@@ -1,11 +1,11 @@
-void Gameplay(PLAYER *jugador, PLAYER *cpu, int size);
+void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode);
 void CheckForWin(PLAYER *p, char *gameFlag, char cpuFlag);
 void PlayerAttack(PLAYER *cpu, int size);
 void CPUAttack(PLAYER *jugador, int size);
 void CheckNaveState(PLAYER *jugador, CELDA *pos, int size);
 void sinkShip(NAVE *nave, CELDA *pos, int size);
 
-void Gameplay(PLAYER *jugador, PLAYER *cpu, int size) {
+void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
     srand(time(0));
     char playerTurn = rand() % 2; // 0 player turn; 1 cpu turn
     PLAYER *p; // Player on turn
@@ -14,8 +14,12 @@ void Gameplay(PLAYER *jugador, PLAYER *cpu, int size) {
     while(!gameFlag) {
         switch (playerTurn) {
             case 0:
+                if(gameMode == 1){
+                    printf("CPU\n");
+                    printBoard(cpu,size);
+                }
+                printf("Jugador\n");
                 printBoard(jugador, size);
-                printBoard(cpu,size);
                 PlayerAttack(cpu, size);
                 p = jugador;
                 break;

@@ -103,7 +103,6 @@ void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, 
     for (int i = 0; i < nave; i++) {
         (pos + (i * movement))->id = id;
         (pos + (i * movement))->state = 1;
-        printf("%d ", (pos + (i * movement))->state);
         (pos + (i * movement))->impact = 0;
     }
     (jugador->naves + id - 1)->state = 0;

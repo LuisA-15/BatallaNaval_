@@ -12,7 +12,7 @@ int main() {
     PLAYER cpu;
 
     char opcion, opcion2;
-    int size = 10;
+    int size = 10, gameMode = 1;
 
     printMenu();
 
@@ -31,8 +31,16 @@ int main() {
                 printf("\n1. Didactico\n2. Facil\n");
                 scanf(" %c", &opcion2);
                 switch(opcion2){
-                    case '1':break;
-                    case '2':break;
+                    case '1':
+                        gameMode = 1;
+                        printMenu();
+                        opcion = 0;
+                        break;
+                    case '2':
+                        gameMode = 2;
+                        printMenu();
+                        opcion = 0;
+                        break;
                     default:
                         printf("Opcion invalida\n\n");
                         printMenu();
@@ -43,7 +51,7 @@ int main() {
             case 'C':
                 createBoard(&jugador, size);
                 createBoard(&cpu, size);
-                Gameplay(&jugador, &cpu, size);
+                Gameplay(&jugador, &cpu, size, gameMode);
                 break;
             case 'D':break;
             default: printf("Opcion invalida\n\n"); break;
