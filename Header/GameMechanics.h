@@ -10,7 +10,7 @@ void PrintWin(int p);
 void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
     srand(time(0));
     char playerTurn = rand() % 2; // 0 player turn; 1 cpu turn
-    PLAYER *p; // Player on turn
+    PLAYER *p; // Player not on turn
     char gameFlag = 0; // 0: Nobody's won 1: Player won 2: CPU won
 
     while(!gameFlag) {
@@ -23,11 +23,11 @@ void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
                 printf("Jugador\n");
                 printBoard(jugador, size);
                 PlayerAttack(cpu, size);
-                p = jugador;
+                p = cpu;
                 break;
             case 1:
                 CPUAttack(jugador, size);
-                p = cpu;
+                p = jugador;
                 break;
         }
         CheckForWin(p, &gameFlag, playerTurn);
@@ -55,6 +55,7 @@ void CheckForWin(PLAYER *p, char *gameFlag, char cpuFlag) {
 void PlayerAttack(PLAYER *cpu, int size) {
     int x;
     int y;
+    printf("Tu turno\n");
     do {
         printf("Escriba coordenada x: ");
         scanf("%d", &x);
@@ -84,6 +85,7 @@ void CPUAttack(PLAYER *jugador, int size) {
     int y = rand() % size;
     y = convertCoordinates(y, size);
 
+    printf("Turno de CPU");
     CELDA *pos = jugador->board;
     pos += (y * size) + x;
 
@@ -177,7 +179,7 @@ int convertCoordinates(int y, int size) {
 
 void PrintWin(int p) {
     switch (p) {
-        case 1: printf("Ganaste!"); break;
-        case 2: printf("CPU gano!"); break;
+        case 1: printf("\nGanaste!"); break;
+        case 2: printf("\nCPU gano!"); break;
     }
 }
