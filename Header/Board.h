@@ -14,7 +14,8 @@ void createBoard(PLAYER *jugador, int size) {
     int upper = PORTAVIONES + 1;
     int lower = LANCHA + 1;
 
-    srand(time(0));
+    srand((time(0) + rand()));
+    srand((rand() * rand()) / rand());
     while (filled <= limit - (size * size * 0.05)) {
         int nave = (rand() % (upper - lower + 1)) + lower;
         int posx = (rand() % size);
