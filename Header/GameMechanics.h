@@ -4,7 +4,8 @@ void PlayerAttack(PLAYER *cpu, int size);
 void CPUAttack(PLAYER *jugador, int size);
 void CheckNaveState(PLAYER *jugador, CELDA *pos, int size);
 void sinkShip(NAVE *nave, CELDA *pos, int size);
-int convertCoordinates(int y);
+int convertCoordinates(int y, int size);
+void PrintWin(int p);
 
 void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
     srand(time(0));
@@ -32,6 +33,7 @@ void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
         CheckForWin(p, &gameFlag, playerTurn);
         playerTurn = (playerTurn + 1) % 2;
     }
+    PrintWin(gameFlag);
 }
 
 void CheckForWin(PLAYER *p, char *gameFlag, char cpuFlag) {
@@ -63,7 +65,7 @@ void PlayerAttack(PLAYER *cpu, int size) {
         scanf("%d", &y);
         printf("\n");
     } while (y < 0 || y >= size);
-    y = convertCoordinates(y);
+    y = convertCoordinates(y, size);
     CELDA *pos = cpu->board;
     pos += (y * size) + x;
 
@@ -80,7 +82,7 @@ void CPUAttack(PLAYER *jugador, int size) {
     srand(time(0));
     int x = rand() % size;
     int y = rand() % size;
-    y = convertCoordinates(y);
+    y = convertCoordinates(y, size);
 
     CELDA *pos = jugador->board;
     pos += (y * size) + x;
@@ -167,9 +169,15 @@ void sinkShip(NAVE *nave, CELDA *pos, int size){
     }
 }
 
-int convertCoordinates(int y) {
+int convertCoordinates(int y, int size) {
     int newY;
-    const int convertFactor = (2 * -(y - 5)) - 1;
-    newY = y + convertFactor;
+    newY = -y + (size - 1);
     return newY;
+}
+
+void PrintWin(int p) {
+    switch (p) {
+        case 1: printf("Ganaste!"); break;
+        case 2: printf("CPU gano!"); break;
+    }
 }
