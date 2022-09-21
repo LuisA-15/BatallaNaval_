@@ -85,7 +85,7 @@ void CPUAttack(PLAYER *jugador, int size) {
     int y = rand() % size;
     y = convertCoordinates(y, size);
 
-    printf("Turno de CPU");
+    printf("Turno de CPU\n");
     CELDA *pos = jugador->board;
     pos += (y * size) + x;
 
