@@ -12,7 +12,7 @@ typedef struct nave_struct {
 
 typedef struct player_struct {
     CELDA board[100][100];
-    NAVE naves[50];
+    NAVE naves[100];
     int naveCount;
 } PLAYER;
 
