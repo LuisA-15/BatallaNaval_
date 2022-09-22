@@ -1,11 +1,8 @@
-void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode);
-void CheckForWin(PLAYER *p, char *gameFlag, char cpuFlag);
-void PlayerAttack(PLAYER *cpu, int size);
-void CPUAttack(PLAYER *jugador, int size);
-void CheckNaveState(PLAYER *jugador, CELDA *pos, int size);
-void sinkShip(NAVE *nave, CELDA *pos, int size);
-int convertCoordinates(int y, int size);
-void PrintWin(int p);
+#include "mechanics.h"
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 
 void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
     srand(time(0));
@@ -15,7 +12,7 @@ void Gameplay(PLAYER *jugador, PLAYER *cpu, int size, int gameMode) {
 
     while(!gameFlag) {
         switch (playerTurn) {
-          case 0:
+            case 0:
                 if(gameMode == 1){
                     printf("CPU\n");
                     printBoard(cpu,size);
