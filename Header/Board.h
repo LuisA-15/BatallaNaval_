@@ -1,12 +1,12 @@
 void createBoard(PLAYER *jugador, int size);
 void initBoard(CELDA *board, int size);
-char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA [][size]);
+char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA *board);
 void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, PLAYER *jugador);
 void printBoard(PLAYER *jugador, int size);
 
 void createBoard(PLAYER *jugador, int size) {
-    CELDA *board = jugador->board;
-    initBoard(jugador->board, size);
+    CELDA *board = *jugador->board;
+    initBoard(*jugador->board, size);
     int filled = 0;
     int limit = size * size * 0.3;
     int id = 1;
@@ -17,6 +17,9 @@ void createBoard(PLAYER *jugador, int size) {
     srand((time(0) + rand()));
     srand((rand() * rand()) / rand());
     while (filled <= limit - (size * size * 0.05)) {
+        /*
+         * Define random characteristics for a ship
+         */
         int nave = (rand() % (upper - lower + 1)) + lower;
         int posx = (rand() % size);
         int posy = (rand() % size);
@@ -26,7 +29,7 @@ void createBoard(PLAYER *jugador, int size) {
         validPos = checkSpace(orientation, posx, posy, size, nave, board);
 
         if (validPos) {
-            fillSpace(orientation, posx, posy, size, nave, id, board);
+            fillSpace(orientation, posx, posy, size, nave, id, jugador);
             filled += nave;
             id++;
         }
@@ -41,7 +44,11 @@ void initBoard(CELDA *board, int size) {
     }
 }
 
-char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA board[][size]) {
+char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA *board) {
+    /*
+     * Checks if the ship fits on the board and does not collide with other ships
+     * based on given orientation and intial position
+     */
     char valid = 1;
     CELDA *pos = board;
     switch (orientation) {
@@ -92,7 +99,7 @@ char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA b
 }
 
 void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, PLAYER *jugador) {
-    CELDA *pos = &jugador->board;
+    CELDA *pos = *jugador->board;
     pos += (posx * size) + posy;
     int movement;
     switch (orientation) {
@@ -113,7 +120,7 @@ void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, 
 }
 
 void printBoard(PLAYER *jugador, int size) {
-    CELDA *pos = jugador->board;
+    CELDA *pos = *jugador->board;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             if (pos->id > 9) {
