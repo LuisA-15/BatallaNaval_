@@ -50,43 +50,43 @@ char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA *
      * based on given orientation and intial position
      */
     char valid = 1;
-    CELDA *pos = board;
+    CELDA *pos = board + (posx * size) + posy;
     switch (orientation) {
         case ARRIBA:
-            pos += (posx * size) + posy;
             for (int i = 0; i < nave; i++) {
-                posx--;
-                if((pos - (i * size))->id != 0) {
+                if(pos->id != 0) {
                     valid = 0;
                     break;
                 }
+                posx--;
+                pos -= size;
             } break;
         case DERECHA:
-            pos += (posx * size) + posy;
             for (int i = 0; i < nave; i++) {
-                posy++;
-                if((pos + i)->id != 0) {
+                if(pos->id != 0) {
                     valid = 0;
                     break;
                 }
+                posy++;
+                pos++;
             } break;
         case ABAJO:
-            pos += (posx * size) + posy;
             for (int i = 0; i < nave; i++) {
-                posx++;
-                if((pos + (i * size))->id != 0) {
+                if(pos->id != 0) {
                     valid = 0;
                     break;
                 }
+                posx++;
+                pos += size;
             } break;
         case IZQUIERDA:
-            pos += (posx * size) + posy;
             for (int i = 0; i < nave; i++) {
-                posy--;
-                if((pos - i)->id != 0) {
+                if(pos->id != 0) {
                     valid = 0;
                     break;
                 }
+                posy--;
+                pos--;
             } break;
     }
     if (posx < 0 || posx >= size) {
