@@ -1,9 +1,5 @@
-#include <time.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include "Structs.h"
-#include "Board.h"
-#include "GameMechanics.h"
+#include "mechanics.h"
 
 void printMenu();
 

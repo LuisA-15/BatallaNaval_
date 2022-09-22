@@ -1,8 +1,7 @@
-void createBoard(PLAYER *jugador, int size);
-void initBoard(CELDA *board, int size);
-char checkSpace(int orientation, int posx, int posy, int size, int nave, CELDA *board);
-void fillSpace(int orientation, int posx, int posy, int size, int nave, int id, PLAYER *jugador);
-void printBoard(PLAYER *jugador, int size);
+#include "board.h"
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void createBoard(PLAYER *jugador, int size) {
     CELDA *board = *jugador->board;
