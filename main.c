@@ -22,8 +22,10 @@ int main() {
             opcion -= 32;
         switch(opcion){
             case 'A':
-                printf("\nIngrese la dimension de la que desea su tablero: ");
-                scanf("%d", &size);
+                do {
+                    printf("\nIngrese la dimension de la que desea su tablero: ");
+                    scanf("%d", &size);
+                } while (size < 1 || size >= 100);
                 printMenu();
                 opcion = 0;
                 break;
