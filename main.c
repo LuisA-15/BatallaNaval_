@@ -12,7 +12,7 @@ int main() {
     PLAYER cpu;
 
     char opcion, opcion2;
-    int size = 10, gameMode = 1;
+    int size = 10, gameMode = 1; // gameMode 1: Didactico 2: Facil
 
     printMenu();
 
